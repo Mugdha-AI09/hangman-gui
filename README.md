@@ -12,3 +12,7 @@ A modern graphical version of the classic Hangman game built using Python and Cu
 ## 📦 Requirements
 ```bash
 pip install customtkinter
+
+## 🖼️ Screenshot
+
+![Hangman GUI Preview](screenshot_hangman.png)
