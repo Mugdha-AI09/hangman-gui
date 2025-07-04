@@ -1,13 +1,13 @@
 import customtkinter as ctk
 import random
 
-# Setup theme
+# Theme setup
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("green")
 
-# Hangman drawing stages
+# Raw ASCII hangman stages
 HANGMAN_PICS = [
-    """
+    r"""
        +---+
        |   |
            |
@@ -15,23 +15,23 @@ HANGMAN_PICS = [
            |
            |
     =========""",
-    """
-       +---+
-       |   |
-       O   |
-           |
-           |
-           |
-    =========""",
-    """
+    r"""
        +---+
        |   |
        O   |
+           |
+           |
+           |
+    =========""",
+    r"""
+       +---+
+       |   |
+       O   |
        |   |
            |
            |
     =========""",
-    """
+    r"""
        +---+
        |   |
        O   |
@@ -39,34 +39,34 @@ HANGMAN_PICS = [
            |
            |
     =========""",
-    """
+    r"""
        +---+
        |   |
        O   |
-      /|\\  |
+      /|\  |
            |
            |
     =========""",
-    """
+    r"""
        +---+
        |   |
        O   |
-      /|\\  |
+      /|\  |
       /    |
            |
     =========""",
-    """
+    r"""
        +---+
        |   |
        O   |
-      /|\\  |
-      / \\  |
+      /|\  |
+      / \  |
            |
     ========="""
 ]
 
-# Victory & Defeat Art
-VICTORY_ART = """
+# Raw ASCII victory and defeat banners
+VICTORY_ART = r"""
   __     ______  _    _   _      ____   _____ ______ 
   \ \   / / __ \| |  | | | |    / __ \ / ____|  ____|
    \ \_/ / |  | | |  | | | |   | |  | | (___ | |__   
@@ -75,7 +75,7 @@ VICTORY_ART = """
      |_|  \____/ \____/  |______\____/|_____/|______|
 """
 
-DEFEAT_ART = """
+DEFEAT_ART = r"""
    _____                         ____                 
   / ____|                       / __ \                
  | |  __  __ _ _ __ ___   ___  | |  | |_   _____ _ __ 
@@ -84,7 +84,7 @@ DEFEAT_ART = """
   \_____|\__,_|_| |_| |_|\___|  \____/  \_/ \___|_|   
 """
 
-# Setup app
+# App setup
 app = ctk.CTk()
 app.title("🎮 Hangman GUI")
 app.geometry("700x750")
@@ -92,7 +92,7 @@ app.geometry("700x750")
 # Word list
 word_list = ["python", "hangman", "developer", "interface", "keyboard", "graphics", "widget", "program"]
 
-# Global state
+# Initial state
 word = random.choice(word_list).upper()
 display_word = ["_" for _ in word]
 guessed_letters = set()
@@ -103,7 +103,7 @@ def disable_all_keys():
     for btn in keyboard_buttons:
         btn.configure(state="disabled")
 
-# Update GUI after each move
+# Update UI
 def update_display():
     hangman_label.configure(text=HANGMAN_PICS[6 - tries])
     word_display.configure(text=" ".join(display_word))
@@ -122,7 +122,7 @@ def update_display():
         word_display.configure(text=f"The word was: {word}", text_color="#ff4d6d")
         disable_all_keys()
 
-# Handle a letter press
+# Letter guess logic
 def guess_letter(letter):
     global tries
     letter = letter.upper()
@@ -137,7 +137,7 @@ def guess_letter(letter):
         tries -= 1
     update_display()
 
-# Reset game
+# Reset game state
 def reset_game():
     global word, display_word, guessed_letters, tries
     word = random.choice(word_list).upper()
@@ -153,41 +153,41 @@ def reset_game():
 # Title
 ctk.CTkLabel(app, text="HANGMAN", font=("Segoe UI", 32, "bold")).pack(pady=20)
 
-# Hangman figure area
+# Hangman ASCII
 hangman_label = ctk.CTkLabel(app, text=HANGMAN_PICS[0], font=("Courier", 16), justify="left")
 hangman_label.pack()
 
-# Word placeholder
+# Word display
 word_display = ctk.CTkLabel(app, text=" ".join(display_word), font=("Segoe UI", 30, "bold"))
 word_display.pack(pady=15)
 
-# Tries and guessed letters
+# Tries + guessed
 tries_label = ctk.CTkLabel(app, text=f"Tries left: {tries}", font=("Segoe UI", 16))
 tries_label.pack()
 guessed_display = ctk.CTkLabel(app, text="Guessed: ", font=("Segoe UI", 14))
 guessed_display.pack(pady=5)
 
-# Game status
+# Result status
 result_label = ctk.CTkLabel(app, text="Guess the word!", font=("Segoe UI", 20, "bold"), text_color="#aaa")
 result_label.pack(pady=10)
 
-# Virtual keyboard
+# Keyboard
 keyboard_frame = ctk.CTkFrame(app, fg_color="transparent")
 keyboard_frame.pack(pady=20)
-
 keyboard_buttons = []
+
 letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 for i, letter in enumerate(letters):
     btn = ctk.CTkButton(keyboard_frame, text=letter, width=40, command=lambda l=letter: guess_letter(l))
     btn.grid(row=i // 9, column=i % 9, padx=5, pady=5)
     keyboard_buttons.append(btn)
 
-# Reset Button
+# Reset button
 ctk.CTkButton(app, text="🔁 Play Again", fg_color="#ffd369", hover_color="#ffaa00", text_color="black", command=reset_game).pack(pady=30)
 
 # Footer
 ctk.CTkLabel(app, text="Made by Mugdha 🖤", font=("Segoe UI", 10), text_color="#666").pack(side="bottom", pady=10)
 
-# Launch
+# Start game
 update_display()
 app.mainloop()
