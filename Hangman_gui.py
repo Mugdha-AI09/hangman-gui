@@ -67,12 +67,12 @@ HANGMAN_PICS = [
 
 # Raw ASCII victory and defeat banners
 VICTORY_ART = r"""
-  __     ______  _    _   _      ____   _____ ______ 
-  \ \   / / __ \| |  | | | |    / __ \ / ____|  ____|
-   \ \_/ / |  | | |  | | | |   | |  | | (___ | |__   
-    \   /| |  | | |  | | | |   | |  | |\___ \|  __|  
-     | | | |__| | |__| | | |___| |__| |____) | |____ 
-     |_|  \____/ \____/  |______\____/|_____/|______|
+ __     __          __          ___        
+ \ \   / /          \ \        / (_)     
+  \ \_/ /__  _   _   \ \  /\  / / _ _ __ 
+   \   / _ \| | | |   \ \/  \/ / | | '_ \
+    | | (_) | |_| |    \  /\  /  | | | | | 
+    |_|\___/ \__,_|     \/  \/   |_|_| |_|
 """
 
 DEFEAT_ART = r"""
@@ -90,7 +90,15 @@ app.title("🎮 Hangman GUI")
 app.geometry("700x750")
 
 # Word list
-word_list = ["python", "hangman", "developer", "interface", "keyboard", "graphics", "widget", "program"]
+word_list = [
+    "python", "hangman", "developer", "interface", "keyboard",
+    "graphics", "widget", "program", "function", "variable",
+    "loop", "condition", "database", "internet", "machine",
+    "learning", "artificial", "intelligence", "neural", "network",
+    "algorithm", "debugging", "syntax", "compile", "execute",
+    "binary", "framework", "automation", "cloud", "encryption"
+]
+
 
 # Initial state
 word = random.choice(word_list).upper()
